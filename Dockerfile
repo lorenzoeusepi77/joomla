@@ -3,14 +3,14 @@ LABEL maintainer="Michael Babker <michael.babker@joomla.org> (@mbabker)"
 
 #RUN DOCKER NO ROOT
 # Add none root user
-RUN  useradd admin && echo "admin:admin" | chpasswd && adduser admin sudo
-USER admin
+#RUN  useradd admin && echo "admin:admin" | chpasswd && adduser admin sudo
+USER user
 
 # Disable remote database security requirements.
 ENV JOOMLA_INSTALLATION_DISABLE_LOCALHOST_CHECK=1
 
 # Enable Apache Rewrite Module
-RUN rm /etc/apache2/mods-enabled/rewrite.load
+#RUN rm /etc/apache2/mods-enabled/rewrite.load
 RUN a2enmod rewrite
 
 # Install PHP extensions
