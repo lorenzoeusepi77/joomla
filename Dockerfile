@@ -2,9 +2,16 @@ FROM php:7.2-apache
 LABEL maintainer="Michael Babker <michael.babker@joomla.org> (@mbabker)"
 
 #RUN DOCKER NO ROOT
-RUN groupadd -g 999 joomla && \
-    useradd -r -u 999 -g joomla joomla
-USER joomla
+RUN apt-get update && \
+      apt-get -y install sudo
+
+RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
+
+USER docker
+
+#RUN groupadd -g 999 user01 && \
+#    useradd -r -u 999 -g user01 user01
+#USER user01
 
 # Disable remote database security requirements.
 ENV JOOMLA_INSTALLATION_DISABLE_LOCALHOST_CHECK=1
