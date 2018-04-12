@@ -2,6 +2,8 @@
 
 set -e
 
+su - user
+
 if [[ "$1" == apache2* ]] || [ "$1" == php-fpm ]; then
         if [ -n "$MYSQL_PORT_3306_TCP" ]; then
                 if [ -z "$JOOMLA_DB_HOST" ]; then
