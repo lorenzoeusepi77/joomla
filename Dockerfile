@@ -4,7 +4,10 @@ LABEL maintainer="Michael Babker <michael.babker@joomla.org> (@mbabker)"
 #RUN DOCKER NO ROOT
 # Add none root user
 #RUN  useradd admin && echo "admin:admin" | chpasswd && adduser admin sudo
-USER user
+RUN dnf install -y sudo && \
+    adduser user && \
+    echo "user ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/user && \
+    chmod 0440 /etc/sudoers.d/user
 
 # Disable remote database security requirements.
 ENV JOOMLA_INSTALLATION_DISABLE_LOCALHOST_CHECK=1
