@@ -2,22 +2,15 @@ FROM php:7.2-apache
 LABEL maintainer="Michael Babker <michael.babker@joomla.org> (@mbabker)"
 
 #RUN DOCKER NO ROOT
-RUN apt-get update && \
-      apt-get -y install sudo
-
-RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
-
-USER docker
-
-#RUN groupadd -g 999 user01 && \
-#    useradd -r -u 999 -g user01 user01
-#USER user01
+# Add none root user
+RUN  useradd admin && echo "admin:admin" | chpasswd && adduser admin sudo
+USER admin
 
 # Disable remote database security requirements.
 ENV JOOMLA_INSTALLATION_DISABLE_LOCALHOST_CHECK=1
 
 # Enable Apache Rewrite Module
-RUN sudo a2enmod rewrite
+RUN a2enmod rewrite
 
 # Install PHP extensions
 RUN set -ex; \
