@@ -17,7 +17,7 @@ USER docker
 ENV JOOMLA_INSTALLATION_DISABLE_LOCALHOST_CHECK=1
 
 # Enable Apache Rewrite Module
-RUN a2enmod rewrite
+RUN sudo a2enmod rewrite
 
 # Install PHP extensions
 RUN set -ex; \
